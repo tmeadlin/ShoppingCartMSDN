@@ -24,7 +24,7 @@ export class CartService {
     }
 
     initializeCart(): Observable<any> {
-        return this.http.post('http://localhost:7512/api/Cart', null)
+        return this.http.post('/api/Cart', null)
             .map((response: Response) => {
                 var cartId = response.json() as string;
 
