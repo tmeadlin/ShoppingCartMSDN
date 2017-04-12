@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Rx";
 
 import {ProductService} from "./product.service";
-import { CartService } from "../shared/services/cart.service";
-import { InternalNotificationService } from "../shared/services/internal-notification.service";
-
 import { Product } from "./models/product";
-import { InternalMessage, InternalNotificationType } from "../shared/models/internal-notification";
 
 @Component({
     template: `
@@ -23,7 +19,7 @@ import { InternalMessage, InternalNotificationType } from "../shared/models/inte
 export class ProductsComponent implements OnInit{
     products: Observable<Product[]>;
 
-    constructor(private productService: ProductService, private cartService: CartService, private internalNotificationService: InternalNotificationService){}
+    constructor(private productService: ProductService){}
 
     ngOnInit(){
         this.products = this.productService.getProducts();

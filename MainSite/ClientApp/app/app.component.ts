@@ -6,7 +6,7 @@ import {CartService} from "./shared/services/cart.service";
     templateUrl: './app.component.html',
     styleUrls: ['./app-styles.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     name = 'Angular';
 
     constructor(private cartService: CartService){}
