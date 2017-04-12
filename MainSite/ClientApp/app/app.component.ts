@@ -7,8 +7,6 @@ import {CartService} from "./shared/services/cart.service";
     styleUrls: ['./app-styles.css']
 })
 export class AppComponent implements OnInit {
-    name = 'Angular';
-
     constructor(private cartService: CartService){}
 
     ngOnInit(){

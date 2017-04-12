@@ -13,6 +13,8 @@ import { AppNavComponent } from './nav/app-nav.component';
 
 import { InternalNotificationService } from './shared/services/internal-notification.service';
 
+import { APP_CONFIG, APP_DI_CONFIG } from './app.config';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -27,7 +29,8 @@ import { InternalNotificationService } from './shared/services/internal-notifica
     ],
     providers: [
         InternalNotificationService,
-        CartService
+        CartService,
+        { provide: APP_CONFIG, useValue: APP_DI_CONFIG }
     ],
     bootstrap: [
         AppComponent

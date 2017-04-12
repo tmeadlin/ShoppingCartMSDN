@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import {Product} from "./models/product";
-import {ProductsMock} from "../mocks/products.mock";
 
 @Injectable()
 export class ProductService {

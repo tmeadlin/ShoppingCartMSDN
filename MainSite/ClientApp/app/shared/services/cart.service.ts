@@ -1,17 +1,18 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { Cart } from "../models/cart";
 
+import { APP_CONFIG, AppConfig } from '../../app.config';
 
 @Injectable()
 export class CartService {
     //CartService is a singleton, so this is another way to pass cart around
     cart: Cart;
 
-    constructor(private http: Http){}
+    constructor(private http: Http, @Inject(APP_CONFIG) private config: AppConfig){}
 
     getCart(): Observable<Cart> {
         return this.http.get(`/api/Cart/${this.cart.id}`)
@@ -24,14 +25,11 @@ export class CartService {
     }
 
     initializeCart(): Observable<any> {
-        return this.http.post('/api/Cart', null)
+        return this.http.post(`${this.config.apiEndpoint}/api/Cart`, null)
             .map((response: Response) => {
                 var cartId = response.json() as string;
-
-                console.log('cartid: ', cartId);
-
                 this.cart = new Cart(cartId);
-                return null
+                return null;
             })
             .catch(err => Observable.throw('This is an error'));
     }

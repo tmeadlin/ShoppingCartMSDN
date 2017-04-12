@@ -1,13 +1,11 @@
-// export class AllUsersHubGroups {
-//     static notifcationGroup = 'notifications';
-// }
+import { InjectionToken } from '@angular/core';
 
-// export class ApiRoutes {
-//     static fakeNotification = 'events/notfication/';
-// }
+export let APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
-export class AppSettings{
-    static baseApi = 'iapi/';
-
-    static isDevelopment = true;
+export class AppConfig {
+    apiEndpoint: string;
 }
+
+export const APP_DI_CONFIG: AppConfig = {
+    apiEndpoint: 'http://localhost:5000'
+};
