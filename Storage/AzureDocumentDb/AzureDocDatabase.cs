@@ -16,7 +16,6 @@ namespace AzureDocumentDb
         private readonly IAzureDocClient _docClient;
         private readonly DocumentDbConfig _documentDbConfig;
         private Database _documentDatabase;
-        static readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
         public AzureDocDatabase(IAzureDocClient docClient, DocumentDbConfig documentDbConfig)
         {
@@ -27,33 +26,19 @@ namespace AzureDocumentDb
         #region IAzureDocDatabase Methods
 
         public DocumentClient Client => _docClient.Client;
-        public async Task<string> SelfLink() => (await GetDocumentDatabase()).SelfLink;
-        public async Task<string> AltLink() => (await GetDocumentDatabase()).AltLink;
+        public string SelfLink => _documentDatabase.SelfLink;
+        public string AltLink => _documentDatabase.AltLink;
 
         #endregion
 
-        #region Private Methods
+        #region Initialization Methods
 
-        private async Task<Database> GetDocumentDatabase()
+        public async Task<IAzureDocDatabase> InitializeDatabaseAsync()
         {
-            if (_documentDatabase != null) return _documentDatabase;
+            if (_documentDatabase == null) 
+                _documentDatabase = await _docClient.Client.CreateDatabaseAsync(new Database { Id = _documentDbConfig.Name });
 
-            await semaphoreSlim.WaitAsync();
-
-            try
-            {
-                _documentDatabase = _docClient.Client.CreateDatabaseQuery().Where(db => db.Id == _documentDbConfig.Name).AsEnumerable().FirstOrDefault();
-
-                // If the database does not exist, create a new database
-                if (_documentDatabase == null)
-                    _documentDatabase = await _docClient.Client.CreateDatabaseAsync(new Database { Id = _documentDbConfig.Name });
-            }
-            finally
-            {
-                semaphoreSlim.Release();
-            }
-
-            return _documentDatabase;
+            return this;
         }
 
         #endregion

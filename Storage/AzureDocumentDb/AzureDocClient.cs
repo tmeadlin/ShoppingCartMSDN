@@ -8,24 +8,20 @@ namespace AzureDocumentDb
     {
         private DocumentClient _client;
         private readonly DocumentDbConfig _documentDbConfig;
-        private readonly Object _thisLock = new Object();
 
         public AzureDocClient(DocumentDbConfig documentDbConfig)
         {
             _documentDbConfig = documentDbConfig;
         }
 
-        public DocumentClient Client => _client ?? GetClient();
+        public DocumentClient Client => _client;
 
-        #region Private Methods
+        #region Initialization Methods
 
-        private DocumentClient GetClient()
+        public void InitializeClient()
         {
-            lock (_thisLock)
-            {
-                _client = new DocumentClient(new Uri(_documentDbConfig.Endpoint), _documentDbConfig.Key);
-                return _client;
-            }            
+            if (_client != null) return;
+            _client = new DocumentClient(new Uri(_documentDbConfig.Endpoint), _documentDbConfig.Key);
         }
 
         #endregion

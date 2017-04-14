@@ -91,9 +91,9 @@ namespace AzureDocumentDb
         }
 
 
-        #region Private Methods
+        #region protected Methods
 
-        private async Task ExecuteWithRetries()
+        protected async Task ExecuteWithRetries()
         {
             var retryAttempts = 0;
 
@@ -101,11 +101,11 @@ namespace AzureDocumentDb
             {
                 try
                 {
-                    DocumentCollection collection = _database.Client.CreateDocumentCollectionQuery(await _database.SelfLink()).Where(coll => coll.Id == _collectionName).AsEnumerable().FirstOrDefault();
+                    DocumentCollection collection = _database.Client.CreateDocumentCollectionQuery(_database.SelfLink).Where(coll => coll.Id == _collectionName).AsEnumerable().FirstOrDefault();
 
                     //// If the collection does not exist, create a new collection
                     if (collection == null)
-                        collection = await _database.Client.CreateDocumentCollectionAsync(await _database.SelfLink(),
+                        collection = await _database.Client.CreateDocumentCollectionAsync(_database.SelfLink,
                             new DocumentCollection
                             {
                                 Id = _collectionName,

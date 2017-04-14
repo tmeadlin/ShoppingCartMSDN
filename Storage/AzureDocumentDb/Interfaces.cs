@@ -10,13 +10,17 @@ namespace AzureDocumentDb
     public interface IAzureDocClient
     {
         DocumentClient Client { get; }
+
+        void InitializeClient();
     }
 
     public interface IAzureDocDatabase
     {
         DocumentClient Client { get; }
-        Task<string> SelfLink();
-        Task<string> AltLink();
+        string SelfLink { get; }
+        string AltLink { get; }
+
+        Task<IAzureDocDatabase> InitializeDatabaseAsync();
     }
 
     public interface IAzureDocCollection
@@ -45,9 +49,7 @@ namespace AzureDocumentDb
 
     public interface IDocumentCollection<T> : IAzureDocCollection<T> where T : CollectionItemEntity
     {
-        //ICatalogDocCollection<T> GetByName(string text, bool isContains = false);
-
-        //ICatalogDocCollection<T> OrderBy(IList<SearchSort> sort);
+        Task InitializeAsync();
     }
 
     public interface IProductCollection : IDocumentCollection<ProductEntity>

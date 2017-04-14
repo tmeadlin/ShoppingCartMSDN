@@ -1,5 +1,6 @@
 ﻿
 
+using System.Threading.Tasks;
 using AzureDocumentDb.Models;
 
 namespace AzureDocumentDb
@@ -8,6 +9,11 @@ namespace AzureDocumentDb
     {
         public CollectionBase(IAzureDocDatabase database, string collectionName) : base(database, collectionName)
         {
+        }
+
+        public async Task InitializeAsync()
+        {
+            await ExecuteWithRetries();
         }
     }
 }
