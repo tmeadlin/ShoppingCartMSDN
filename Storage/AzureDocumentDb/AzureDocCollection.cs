@@ -105,7 +105,7 @@ namespace AzureDocumentDb
 
                     //// If the collection does not exist, create a new collection
                     if (collection == null)
-                        collection = await _database.Client.CreateDocumentCollectionAsync(_database.SelfLink,
+                        collection = await _database.Client.CreateDocumentCollectionIfNotExistsAsync(_database.SelfLink,
                             new DocumentCollection
                             {
                                 Id = _collectionName,

@@ -36,7 +36,7 @@ namespace AzureDocumentDb
         public async Task<IAzureDocDatabase> InitializeDatabaseAsync()
         {
             if (_documentDatabase == null) 
-                _documentDatabase = await _docClient.Client.CreateDatabaseAsync(new Database { Id = _documentDbConfig.Name });
+                _documentDatabase = await _docClient.Client.CreateDatabaseIfNotExistsAsync(new Database { Id = _documentDbConfig.Name });
 
             return this;
         }
