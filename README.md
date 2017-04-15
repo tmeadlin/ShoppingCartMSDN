@@ -14,7 +14,8 @@ Click on the cart icon after an item has been added. Refresh the page to refresh
 * [TypeScript (v 2.1 or higher)](https://www.typescriptlang.org/#download-links)
 * [Webpack (v2)](https://webpack.js.org/)
 
-### AppSettings DocumentDb Credentials
+### AppSettings DocumentDb Credentials for DocumentDb Emulator
+* If you are using the credentials from your own DocumentDB, please replace the values of **Endpoint** and **Key** in the project appsettings.json file.  Otherwise, if you are using DocumentDB Emulator, these settings below are already set on the project.
 ```json
   "DocumentDb": {
     "Endpoint": "https://localhost:8081/",
@@ -27,9 +28,7 @@ Click on the cart icon after an item has been added. Refresh the page to refresh
   
 ## Running using dotnet cli
 1. Download/Clone the code
-2. Replace the DocumentDb section of the ./MainSite/appsettings.json file. 
-    * If you have your own DocumentDb instance, enter your **Endpoint** and **Key** values
-    * If you don't have DocumentDb and downloaded DocumentDb Emulator, use the information provided above
+2. Verify that DocumentDB Emulator or your own DocumentDB instance is up and running
 3. Open a Console Window and navigate to MainSite
 4. Run "npm install"
 5. Run "dotnet restore"
@@ -39,9 +38,7 @@ Click on the cart icon after an item has been added. Refresh the page to refresh
 ## Running using Visual Studio 2017
 1. Download/Clone the code
 2. Open the Solution in Visual Studio 2017 
-3. Replace the DocumentDb section of the ./MainSite/appsettings.json file. 
-    * If you have your own DocumentDb instance, enter your **Endpoint** and **Key** values
-    * If you don't have DocumentDb and downloaded DocumentDb Emulator, use the information provided above
+3. Verify that DocumentDB Emulator or your own DocumentDB instance is up and running
 4. From the launchSettings.json (./MainSite/Properties/launchSettings.json), copy the **applicationUrl**
 5. In the app.config.ts (./MainSite/ClientApp/app/app.config.ts), paste the applicationUrl you just copied into the **apiEndpoint**
 6. Right click package.json, and select **Restore Packages**
